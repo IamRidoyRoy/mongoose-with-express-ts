@@ -5,6 +5,7 @@ export const CreateUserToDB =
     async (payload: IUser): Promise<IUser> => {
         const user = new User(payload)
         await user.save();
+        console.log(user.fullName())
         return user;
     }
 
