@@ -25,7 +25,7 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
     // 1. Create a interface
     interface IUser {
         id: string;
-        role: 'student';
+        role: string;
         password: string;
         name: {
             firstName: string;
@@ -52,12 +52,10 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
         role: {
             type: String,
             required: true,
-            unique: true,
         },
         password: {
             type: String,
             required: true,
-            unique: true,
         },
 
         name: {
@@ -104,6 +102,37 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
             required: true,
         }
     });
+
+
+    // 3. Create a Model.
+    const User = model<IUser>('User', userSchema);
+
+    const CreateUserToDB = async () => {
+        const user = new User({
+            id: '779',
+            role: 'student3',
+            password: '67777758',
+            name: {
+
+                firstName: 'Ridoy',
+                middleName: 'Roy',
+                lastName: 'Rohid',
+            },
+            dateOfBirth: '1.2.43',
+            gender: 'Male',
+            email: 'abc@gmail.com',
+            contactNo: '9845640323523',
+            emergencyContact: '6435678544365',
+            presentAddress: 'Dhaka Bangladesh',
+            permanentAddress: 'Barisal',
+
+        });
+        await user.save();
+        console.log('A new User has been created Successfully!')
+    }
+
+    CreateUserToDB();
+
 
 })
 
