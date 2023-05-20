@@ -14,4 +14,14 @@ export const getUsersFromDB = async (): Promise<IUser[]> => {
     return users;
 }
 
+// Get one userid from DB 
+export const getUserIdFromDB = async (payload: string): Promise<IUser | null> => {
+    const user = User.findOne({ id: payload },
+        // if we want to filter some specific data 
+        {
+            name: 1, email: 1, contactNo: 1
+        });
 
+    return user;
+
+}
