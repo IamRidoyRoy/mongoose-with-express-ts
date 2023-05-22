@@ -1,9 +1,9 @@
 import { Model, Schema, model } from "mongoose";
-import { IUser, IUserMethods } from "./user.interface";
+import { IUser, IUserMethods, UserModel } from "./user.interface";
 
 
 // / Create a new Model type that knows about IUserMethods...
-type UserModel = Model<IUser, {}, IUserMethods>;
+// type UserModel = Model<IUser, {}, IUserMethods>;
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>({
 
@@ -64,6 +64,10 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
         type: String,
         required: true,
     }
+});
+
+userSchema.static('createWithFullName', async function getAdminUsers() {
+    const admins = await this.find({ role: 'admin' })
 });
 
 
